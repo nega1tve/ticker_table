@@ -1,0 +1,93 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #fff;
+  font: normal 16px/24px Suisse, sans-serif;
+}
+
+.container {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.container p {
+  font-size: 18px;
+}
+
+.ticker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  border: 2px solid rgb(233, 239, 245);
+  border-radius: 4px;
+  margin-right: 32px;
+  padding: 20px 24px 12px;
+}
+
+.ticker--trading-asset {
+  margin: 3px;
+  display: block;
+  color: rgb(17, 25, 36);
+  border: 1px solid rgb(207, 219, 234);
+  border-radius: 4px;
+  width: 214px;
+  height: 24px;
+}
+
+.ticker--trading-asset select {
+  border: none;
+  width: 100%;
+}
+
+.ticker--volume input {
+  text-align: center;
+  color: rgb(17, 25, 36);
+  border: 1px solid rgb(207, 219, 234);
+  border-radius: 4px;
+  width: 214px;
+  height: 24px;
+}
+
+.ticker--options {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  justify-content: space-between;
+}
+
+.option-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100px;
+  padding: 16px;
+
+  font-size: 36px;
+  margin: 0px 2px 0px 2px;
+}
+
+.option-item:last-child {
+  border-left: 1px solid #cfdbec;
+  padding-left: 24px;
+}
+
+.option-item button {
+  min-width: 98px;
+  height: 40px;
+  border-radius: 4px;
+  border: none;
+}
+
+#SELL {
+  background-color: rgb(236, 69, 89);
+}
+
+#BUY {
+  background-color: rgb(0, 189, 147);
+}

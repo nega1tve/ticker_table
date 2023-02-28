@@ -8,6 +8,32 @@
     <title>Trading terminal</title>
   </head>
   <body>
+    <div class="container">
+      <div class="ticker">
+        <div class="ticker--trading-asset">
+          <select>
+            <option value="value1">RUB/CNH</option>
+            <option value="value2">RUB/EUR</option>
+            <option value="value3">RUB/USD</option>
+            <option value="value4">RUB/TRY</option>
+          </select>
+        </div>
+        <div class="ticker--volume">
+          <input type="text" value="100 000" />
+        </div>
+        <div class="ticker--options">
+          <div class="option-item">
+            <p>50</p>
+            <button id="SELL">SELL</button>
+          </div>
+          <div class="option-item">
+            <p>60</p>
+            <button id="BUY">BUY</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="/js/app.js"></script>
   </body>
 </html>

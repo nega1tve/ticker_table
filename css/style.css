@@ -20,7 +20,7 @@ body {
 }
 
 .container p {
-  font-size: 18px;
+  font-size: 15px;
 }
 
 .ticker {
@@ -35,6 +35,7 @@ body {
   border-radius: 4px;
   margin-right: 32px;
   padding: 20px 24px 12px;
+  position: relative;
 }
 
 .ticker--trading-asset {
@@ -107,11 +108,45 @@ body {
   margin-top: 10px;
 }
 
-/* .table table {
-  border-spacing: 0px;
-  min-width: 100%;
-  width: 478px;
-  table-layout: fixed;
-  border-collapse: separate;
-  border-spacing: 0px;
-} */
+#confirm {
+  min-width: 98px;
+  height: 40px;
+  border-radius: 4px;
+  border: none;
+  background-color: rgba(0, 108, 239, 0.527);
+}
+
+#overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  display: none;
+}
+
+#overlay.active {
+  display: flex;
+  flex-direction: column;
+}
+
+#overlay--close-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 20px;
+  height: 20px;
+}
+
+#overlay p {
+  margin-top: 30px;
+  display: flex;
+  margin: 0 auto;
+  align-items: center;
+
+  width: 100%;
+}
+
+#overlay .confirm {
+}

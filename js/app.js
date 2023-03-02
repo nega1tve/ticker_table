@@ -2,11 +2,6 @@ $(document).ready(function () {
   $("#table").DataTable();
 });
 
-// const select = document.querySelector("select");
-// const input = document.querySelector("input");
-// const sellBtn = document.getElementById("SELL");
-// const buyBtn = document.getElementById("BUY");
-
 // Создаем контейнер
 const container = document.createElement("div");
 container.classList.add("container");
@@ -53,11 +48,11 @@ tradingAsset.appendChild(select);
 const volume = document.createElement("div");
 volume.classList.add("ticker--volume");
 
-const input = document.createElement("input");
-input.type = "text";
-input.value = "100 000";
+const inputVolume = document.createElement("input");
+inputVolume.type = "text";
+inputVolume.value = "100 000";
 
-volume.appendChild(input);
+volume.appendChild(inputVolume);
 
 // Создаем кнопки покупки/продажи
 const options = document.createElement("div");
@@ -67,27 +62,27 @@ const optionItem1 = document.createElement("div");
 optionItem1.classList.add("option-item");
 
 const p1 = document.createElement("p");
-p1.textContent = "50";
+p1.textContent = "8.570";
 
-const button1 = document.createElement("button");
-button1.id = "SELL";
-button1.textContent = "SELL";
+const buttonSell = document.createElement("button");
+buttonSell.id = "SELL";
+buttonSell.textContent = "SELL";
 
 optionItem1.appendChild(p1);
-optionItem1.appendChild(button1);
+optionItem1.appendChild(buttonSell);
 
 const optionItem2 = document.createElement("div");
 optionItem2.classList.add("option-item");
 
 const p2 = document.createElement("p");
-p2.textContent = "60";
+p2.textContent = "8.559";
 
-const button2 = document.createElement("button");
-button2.id = "BUY";
-button2.textContent = "BUY";
+const buttonBuy = document.createElement("button");
+buttonBuy.id = "BUY";
+buttonBuy.textContent = "BUY";
 
 optionItem2.appendChild(p2);
-optionItem2.appendChild(button2);
+optionItem2.appendChild(buttonBuy);
 
 options.appendChild(optionItem1);
 options.appendChild(optionItem2);
@@ -243,6 +238,7 @@ row3.appendChild(data21);
 // Добавляем вторую строку в таблицу
 tbody.appendChild(row3);
 
+// Изменение отображаемых значений в соответсвии с валютной парой
 select.addEventListener("change", function () {
   if (select.value === "CNH/RUB") {
     p1.textContent = "8.570";
@@ -260,4 +256,67 @@ select.addEventListener("change", function () {
     p1.textContent = "2.92";
     p2.textContent = "3.97";
   }
+});
+
+// Расчет текущей цены для Покупки
+buttonBuy.addEventListener("click", function () {
+  let price = Number(trimmedStr()) * Number(p2.textContent);
+  console.log(price);
+
+  overlay.classList.toggle("active");
+  outputPrice.textContent = `Покупка ${select.value} при объеме ${inputVolume.value} будет составлять: ${price}`;
+  overlay.appendChild(outputPrice);
+  overlay.appendChild(confirm);
+});
+
+// Расчет текущей цены для Продажи
+buttonSell.addEventListener("click", function () {
+  let price = Number(trimmedStr()) * Number(p1.textContent);
+  console.log(price);
+
+  overlay.classList.toggle("active");
+  outputPrice.textContent = `Продажа ${select.value} при объеме ${inputVolume.value} будет составлять: ${price}`;
+  overlay.appendChild(outputPrice);
+  overlay.appendChild(confirm);
+});
+
+// Удаление пробелов из строки
+const trimmedStr = function () {
+  let str = inputVolume.value;
+  let arr = str.split(" ");
+  let trimmedStr = arr.join("");
+  return trimmedStr;
+};
+
+// Создаём исходящую информацию о конечной стоимости сделки
+const outputPrice = document.createElement("p");
+outputPrice.id = "outputPrice";
+
+// Создаем кнопку подтверждения сделки
+const confirm = document.createElement("button");
+confirm.id = "confirm";
+confirm.textContent = "Confirm";
+
+//Создание оверлея
+const overlay = document.createElement("div");
+overlay.id = "overlay";
+ticker.appendChild(overlay);
+
+// Добавления кнопки закрытия оверлея
+const divoverlayCloseBtn = document.createElement("div");
+const overlayCloseBtn = document.createElement("button");
+overlayCloseBtn.id = "overlay--close-btn";
+// overlayCloseBtn.textContent = "Закрыть";
+
+const overlayCloseIcon = document.createElement("i");
+overlayCloseIcon.classList.add("fa-light", "fa-square-xmark");
+
+// добавляем иконку в кнопку
+overlayCloseBtn.prepend(overlayCloseIcon);
+
+// overlayCloseBtn.textContent = "Закрыть";
+overlay.appendChild(overlayCloseBtn);
+
+overlayCloseBtn.addEventListener("click", () => {
+  overlay.classList.remove("active");
 });

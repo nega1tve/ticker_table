@@ -140,12 +140,15 @@ data3.textContent = "Active";
 
 const data4 = document.createElement("td");
 data4.textContent = "Buy";
+data4.classList.add(data4.textContent === "Buy" ? "cell--buy" : "cell--sell");
 
 const data5 = document.createElement("td");
-data5.textContent = "100";
+data5.textContent = "8.559";
+data5.classList.add(data4.textContent === "Buy" ? "cell--buy" : "cell--sell");
 
 const data6 = document.createElement("td");
 data6.textContent = "10";
+data6.classList.add(data4.textContent === "Buy" ? "cell--buy" : "cell--sell");
 
 const data7 = document.createElement("td");
 data7.textContent = "CNH/RUB";
@@ -182,12 +185,15 @@ data10.textContent = "Filled";
 
 const data11 = document.createElement("td");
 data11.textContent = "Sell";
+data11.classList.add(data11.textContent === "Buy" ? "cell--buy" : "cell--sell");
 
 const data12 = document.createElement("td");
-data12.textContent = "150";
+data12.textContent = "8.570";
+data12.classList.add(data11.textContent === "Buy" ? "cell--buy" : "cell--sell");
 
 const data13 = document.createElement("td");
 data13.textContent = "5";
+data13.classList.add(data11.textContent === "Buy" ? "cell--buy" : "cell--sell");
 
 const data14 = document.createElement("td");
 data14.textContent = "CNH/RUB";
@@ -217,12 +223,15 @@ data17.textContent = "Cancelled";
 
 const data18 = document.createElement("td");
 data18.textContent = "Buy";
+data18.classList.add(data18.textContent === "Buy" ? "cell--buy" : "cell--sell");
 
 const data19 = document.createElement("td");
-data19.textContent = "200";
+data19.textContent = "74.89";
+data19.classList.add(data18.textContent === "Buy" ? "cell--buy" : "cell--sell");
 
 const data20 = document.createElement("td");
 data20.textContent = "3";
+data20.classList.add(data18.textContent === "Buy" ? "cell--buy" : "cell--sell");
 
 const data21 = document.createElement("td");
 data21.textContent = "USD/RUB";
@@ -237,6 +246,44 @@ row3.appendChild(data21);
 
 // Добавляем вторую строку в таблицу
 tbody.appendChild(row3);
+
+// Создаем четвертую строку
+const row4 = document.createElement("tr");
+
+const data22 = document.createElement("td");
+data22.textContent = "4";
+
+const data23 = document.createElement("td");
+data23.textContent = "2023-03-03 11:15:00";
+
+const data24 = document.createElement("td");
+data24.textContent = "Rejected";
+
+const data25 = document.createElement("td");
+data25.textContent = "Sell";
+data25.classList.add(data25.textContent === "Buy" ? "cell--buy" : "cell--sell");
+
+const data26 = document.createElement("td");
+data26.textContent = "73.59";
+data26.classList.add(data25.textContent === "Buy" ? "cell--buy" : "cell--sell");
+
+const data27 = document.createElement("td");
+data27.textContent = "3";
+data27.classList.add(data25.textContent === "Buy" ? "cell--buy" : "cell--sell");
+
+const data28 = document.createElement("td");
+data28.textContent = "USD/RUB";
+
+row4.appendChild(data22);
+row4.appendChild(data23);
+row4.appendChild(data24);
+row4.appendChild(data25);
+row4.appendChild(data26);
+row4.appendChild(data27);
+row4.appendChild(data28);
+
+// Добавляем четвертую строку в таблицу
+tbody.appendChild(row4);
 
 // Изменение отображаемых значений в соответсвии с валютной парой
 select.addEventListener("change", function () {
@@ -261,23 +308,25 @@ select.addEventListener("change", function () {
 // Расчет текущей цены для Покупки
 buttonBuy.addEventListener("click", function () {
   let price = Number(trimmedStr()) * Number(p2.textContent);
+
   console.log(price);
 
   overlay.classList.toggle("active");
   outputPrice.textContent = `Покупка ${select.value} при объеме ${inputVolume.value} будет составлять: ${price}`;
-  overlay.appendChild(outputPrice);
-  overlay.appendChild(confirm);
+  divOverlayP.appendChild(outputPrice);
+  divOverlayConfirm.appendChild(confirm);
 });
 
 // Расчет текущей цены для Продажи
 buttonSell.addEventListener("click", function () {
   let price = Number(trimmedStr()) * Number(p1.textContent);
+
   console.log(price);
 
   overlay.classList.toggle("active");
   outputPrice.textContent = `Продажа ${select.value} при объеме ${inputVolume.value} будет составлять: ${price}`;
-  overlay.appendChild(outputPrice);
-  overlay.appendChild(confirm);
+  divOverlayP.appendChild(outputPrice);
+  divOverlayConfirm.appendChild(confirm);
 });
 
 // Удаление пробелов из строки
@@ -303,20 +352,52 @@ overlay.id = "overlay";
 ticker.appendChild(overlay);
 
 // Добавления кнопки закрытия оверлея
-const divoverlayCloseBtn = document.createElement("div");
 const overlayCloseBtn = document.createElement("button");
-overlayCloseBtn.id = "overlay--close-btn";
-// overlayCloseBtn.textContent = "Закрыть";
 
+// Создание иконки
 const overlayCloseIcon = document.createElement("i");
 overlayCloseIcon.classList.add("fa-light", "fa-square-xmark");
 
-// добавляем иконку в кнопку
-overlayCloseBtn.prepend(overlayCloseIcon);
+const divOverlayCloseBtn = document.createElement("div");
+const divOverlayP = document.createElement("div");
+const divOverlayConfirm = document.createElement("div");
 
-// overlayCloseBtn.textContent = "Закрыть";
-overlay.appendChild(overlayCloseBtn);
+divOverlayCloseBtn.classList.add("overlay--close-btn");
+divOverlayP.classList.add("overlay--p");
+divOverlayConfirm.classList.add("overlay--confirm");
+
+overlay.appendChild(divOverlayCloseBtn);
+overlay.appendChild(divOverlayP);
+overlay.appendChild(divOverlayConfirm);
+
+divOverlayCloseBtn.appendChild(overlayCloseBtn);
 
 overlayCloseBtn.addEventListener("click", () => {
   overlay.classList.remove("active");
 });
+
+// Создание "Х"
+var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+svg.setAttribute("width", "16");
+svg.setAttribute("height", "16");
+svg.setAttribute("viewBox", "0 0 16 16");
+
+var line1 = document.createElementNS("http://www.w3.org/2000/svg", "line");
+line1.setAttribute("x1", "0");
+line1.setAttribute("y1", "0");
+line1.setAttribute("x2", "16");
+line1.setAttribute("y2", "16");
+line1.setAttribute("stroke", "black");
+line1.setAttribute("stroke-width", "2");
+
+var line2 = document.createElementNS("http://www.w3.org/2000/svg", "line");
+line2.setAttribute("x1", "0");
+line2.setAttribute("y1", "16");
+line2.setAttribute("x2", "16");
+line2.setAttribute("y2", "0");
+line2.setAttribute("stroke", "black");
+line2.setAttribute("stroke-width", "2");
+svg.appendChild(line1);
+svg.appendChild(line2);
+
+overlayCloseBtn.appendChild(svg);
